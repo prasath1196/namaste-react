@@ -1,0 +1,33 @@
+{
+  "name": "namaste_react",
+  "version": "1.0.0",
+  "description": "This is namaste react",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/prasath1101/namaste-react.git"
+  },
+  "keywords": [
+    "react",
+    "react-learning"
+  ],
+  "author": "prasath",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/prasath1101/namaste-react/issues"
+  },
+  "homepage": "https://gitlab.com/prasath1101/namaste-react#readme",
+  "devDependencies": {
+    "parcel": "^2.8.3",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "browserslist": [
+    "last 2 versions"
+  ]
+}
