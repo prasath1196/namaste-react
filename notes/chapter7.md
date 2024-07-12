@@ -41,3 +41,7 @@
 ### useRouteError
 
 - This is used to throw more informational errors
+
+### Link
+
+- Use Link in place of href to make applications single page

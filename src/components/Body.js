@@ -2,6 +2,7 @@ import RestaurantCard from "./RestaurantCard";
 import resList from "../utils/mockData";
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
 const Body = () => {
   let [restaurantList, setRestaurantList] = useState([]);
 
@@ -96,34 +97,45 @@ const Body = () => {
   }
 
   return (
-    <div className='body'>
-      <div className='filter'>
-        <div className='search'>
+    <div className='body p-2  bg-white  dark:bg-black'>
+      <div className='flex justify-center dark:'>
+        <div className='pb-2'>
           <input
             type='text'
-            className='search-box'
+            className='w-96 h-8 rounded-lg border-solid border-blue-300 border-2 dark:border-gray-500'
             value={searchText}
             onChange={(e) => updateSearchBox(e)}
           ></input>
-          <button className='search-btn' onClick={searchRestaurants}>
+          <button
+            className='ml-2 rounded-lg bg-blue-300 w-20 h-8 dark:bg-gray-500 dark:text-white'
+            onClick={searchRestaurants}
+          >
             Search
           </button>
         </div>
-        <button
-          className='filter-btn'
-          onClick={() => {
-            const filteredRes = restaurantList.filter(
-              (res) => res.info.avgRating >= 4.4
-            );
-            setFilteredRestaurants(filteredRes);
-          }}
-        >
-          Top Rated Restaurants
-        </button>
+        <div className='ml-1'>
+          <button
+            className='ml-2 rounded-lg bg-blue-300 w-52  h-8  dark:bg-gray-500 dark:text-white'
+            onClick={() => {
+              const filteredRes = restaurantList.filter(
+                (res) => res.info.avgRating >= 4.4
+              );
+              setFilteredRestaurants(filteredRes);
+            }}
+          >
+            Top Rated Restaurants
+          </button>
+        </div>
       </div>
-      <div className='res-container'>
+      <div className='flex flex-wrap dark:bg-black'>
         {filteredRestaurants.map((restaurant) => (
-          <RestaurantCard key={restaurant?.info?.id} resData={restaurant} />
+          <Link
+            key={restaurant?.info?.id}
+            resData={restaurant}
+            to={"/restaurants/" + restaurant?.info?.id}
+          >
+            <RestaurantCard resData={restaurant} />
+          </Link>
         ))}
       </div>
     </div>

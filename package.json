@@ -23,7 +23,9 @@
   "homepage": "https://gitlab.com/prasath1101/namaste-react#readme",
   "devDependencies": {
     "parcel": "^2.8.3",
-    "process": "^0.11.10"
+    "postcss": "^8.4.39",
+    "process": "^0.11.10",
+    "tailwindcss": "^3.4.4"
   },
   "dependencies": {
     "react": "^18.2.0",
