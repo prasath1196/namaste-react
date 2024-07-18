@@ -2,25 +2,14 @@ import { useEffect, useState } from "react";
 import { MENU_URL } from "../utils/constants";
 import Shimmer from "./Shimmer";
 import { useParams } from "react-router-dom";
+import useRestaurantMenu from "../utils/useRestaurantMenu";
 
 const RestaurantMenu = () => {
-  useEffect(() => {
-    fetchMenu();
-  }, []);
-
-  const [restaurant, setRestaurant] = useState(null);
-
   const [showRecommended, setShowRecommended] = useState("hidden");
-  console.log(showRecommended);
   const { resID } = useParams();
-  console.log(resID);
 
-  const fetchMenu = async () => {
-    const res = await fetch(MENU_URL + resID);
-    const menuData = await res.json();
-    setRestaurant(menuData);
-  };
-
+  const restaurant = useRestaurantMenu(resID);
+  console.log(restaurant);
   if (restaurant == null) return <Shimmer />;
 
   const { name, areaName, costForTwoMessage, cuisines, avgRating, sla } =
@@ -29,7 +18,6 @@ const RestaurantMenu = () => {
   const { itemCards } =
     restaurant?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]
       ?.card?.card;
-  console.log(itemCards);
   console.log(restaurant?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR);
   return (
     <div className='restaurant-menu'>
@@ -57,7 +45,7 @@ const RestaurantMenu = () => {
             <div className={"section-content " + showRecommended}>
               {itemCards.map((item) => (
                 <div
-                  class='item-card mt-10 h-28  shadow-lg border-b-stone-50 px-2 hover:bg-stone-50 hover:shadow-md '
+                  className='item-card mt-10 h-28  shadow-lg border-b-stone-50 px-2 hover:bg-stone-50 hover:shadow-md '
                   key={item?.card?.info?.id}
                 >
                   {item?.card?.info?.name} - Rs.

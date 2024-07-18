@@ -7,6 +7,12 @@ class UserClass extends React.Component {
       count: 0,
     };
   }
+
+  componentDidMount() {}
+
+  componentDidUpdate() {}
+
+  componentWillUnmount() {}
   render() {
     let { data } = this.props;
     let { count } = this.state;

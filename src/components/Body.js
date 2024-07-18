@@ -3,12 +3,17 @@ import resList from "../utils/mockData";
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
+import { DOG_IMAGE_URL } from "../utils/constants";
 const Body = () => {
   let [restaurantList, setRestaurantList] = useState([]);
 
   let [filteredRestaurants, setFilteredRestaurants] = useState(restaurantList);
 
   let [searchText, setSearchText] = useState("");
+
+  let onlineStatus = useOnlineStatus();
+
   useEffect(() => {
     fetchData();
     // window.addEventListener("scroll", handleScroll);
@@ -46,51 +51,13 @@ const Body = () => {
     setFilteredRestaurants(filteredRestaurants);
   };
 
-  // const loadRestaurants = async () => {
-  //   console.log("Scrolled");
-  //   const data = await fetch(
-  //     "https://www.swiggy.com/dapi/restaurants/list/update",
-  //     {
-  //       method: "POST",
-  //       body: JSON.stringify({
-  //         lat: "12.9351929",
-  //         lng: "77.62448069999999",
-  //         nextOffset: "CJhlELQ4KIDY7IKo9sbMHDCnEzgE",
-  //         widgetOffset: {
-  //           NewListingView_category_bar_chicletranking_TwoRows: "",
-  //           NewListingView_category_bar_chicletranking_TwoRows_Rendition: "",
-  //           Restaurant_Group_WebView_PB_Theme: "",
-  //           Restaurant_Group_WebView_SEO_PB_Theme: "",
-  //           collectionV5RestaurantListWidget_SimRestoRelevance_food_seo: "24",
-  //           inlineFacetFilter: "",
-  //           restaurantCountWidget: "",
-  //         },
-  //         filters: {},
-  //         seoParams: {
-  //           seoUrl: "https://www.swiggy.com/",
-  //           pageType: "FOOD_HOMEPAGE",
-  //           apiName: "FoodHomePage",
-  //         },
-  //         page_type: "DESKTOP_WEB_LISTING",
-  //         _csrf: "567PNhzP9wBF-AdfvuCUsRbm4zZUheEVsPuuDcEo",
-  //       }),
-  //     }
-  //   );
-
-  //   const jsonData = await data.json();
-  //   let newRestaurants =
-  //     jsonData.data.cards[4]?.card?.card?.gridElements?.infoWithStyle
-  //       ?.restaurants || [];
-
-  //   setRestaurantList((prevList) => [...prevList, ...newRestaurants]);
-  //   if (searchText.length() === 0) {
-  //     setFilteredRestaurants((prevList) => [...prevList, ...newRestaurants]);
-  //   }
-  // };
-
-  // const handleScroll = () => {
-  //   loadRestaurants();
-  // };
+  if (onlineStatus === false) {
+    return (
+      <div className='grid justify-center align-middle'>
+        Hey, Seems you are offline!
+      </div>
+    );
+  }
 
   if (restaurantList.length === 0) {
     return <Shimmer />;
