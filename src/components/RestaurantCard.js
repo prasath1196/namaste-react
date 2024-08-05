@@ -2,6 +2,7 @@ import { CDN_URL } from "../utils/constants";
 
 const RestaurantCard = (props) => {
   const { resData } = props;
+  console.log(resData);
   const { cloudinaryImageId, name, cuisines, avgRating, costForTwo, sla } =
     resData?.info;
 
@@ -33,6 +34,20 @@ const RestaurantCard = (props) => {
       </div>
     </div>
   );
+};
+
+export const withSuperFastLabel = (RestaurantCard) => {
+  return (props) => {
+    console.log("here");
+    return (
+      <div>
+        <div className='absolute rounded-md bg-yellow-200 m-2 p-2'>
+          Super Fast!
+        </div>
+        <RestaurantCard resData={props.resData} />
+      </div>
+    );
+  };
 };
 
 export default RestaurantCard;

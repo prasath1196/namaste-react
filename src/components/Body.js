@@ -1,4 +1,4 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withSuperFastLabel } from "./RestaurantCard";
 import resList from "../utils/mockData";
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
@@ -14,6 +14,8 @@ const Body = () => {
 
   let onlineStatus = useOnlineStatus();
 
+  let RestaurantCardPromoted = withSuperFastLabel(RestaurantCard);
+
   useEffect(() => {
     fetchData();
     // window.addEventListener("scroll", handleScroll);
@@ -24,10 +26,13 @@ const Body = () => {
 
   const fetchData = async () => {
     const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999"
     );
     const jsonData = await data.json();
-
+    console.log(
+      jsonData.data.cards[4]?.card?.card?.gridElements?.infoWithStyle
+        ?.restaurants
+    );
     setRestaurantList(
       jsonData.data.cards[4]?.card?.card?.gridElements?.infoWithStyle
         ?.restaurants
@@ -101,7 +106,11 @@ const Body = () => {
             resData={restaurant}
             to={"/restaurants/" + restaurant?.info?.id}
           >
-            <RestaurantCard resData={restaurant} />
+            {restaurant.info.sla.deliveryTime < 20 ? (
+              <RestaurantCardPromoted resData={restaurant} />
+            ) : (
+              <RestaurantCard resData={restaurant} />
+            )}
           </Link>
         ))}
       </div>
