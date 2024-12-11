@@ -1,9 +1,10 @@
 import RestaurantCard, { withSuperFastLabel } from "./RestaurantCard";
 import resList from "../utils/mockData";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/userContext";
 import { DOG_IMAGE_URL } from "../utils/constants";
 const Body = () => {
   let [restaurantList, setRestaurantList] = useState([]);
@@ -13,6 +14,8 @@ const Body = () => {
   let [searchText, setSearchText] = useState("");
 
   let onlineStatus = useOnlineStatus();
+
+  const { loggedInUser, setUserName } = useContext(UserContext);
 
   let RestaurantCardPromoted = withSuperFastLabel(RestaurantCard);
 
@@ -97,6 +100,13 @@ const Body = () => {
           >
             Top Rated Restaurants
           </button>
+        </div>
+        <div className='ml-1'>
+          <input
+            className='border-black p-2'
+            value={loggedInUser}
+            onChange={(e) => setUserName(e.target.value)}
+          />
         </div>
       </div>
       <div className='flex flex-wrap dark:bg-black'>

@@ -7,15 +7,28 @@ import About from "./components/About";
 import ContactUs from "./components/ContactUs";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
+import { useEffect } from "react";
+import UserContext from "./utils/userContext";
 const Grocery = lazy(() => import("./components/Grocery"));
+
 const AppLayout = () => {
+  const [userName, setUserName] = useState();
+
+  useEffect(() => {
+    const userData = { userName: "Prasath" };
+
+    setUserName(userData.userName);
+  }, []);
   return (
     <div className='app'>
-      <Header />
-      <Outlet />
+      <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+        <Header />
+        <Outlet />
+      </UserContext.Provider>
     </div>
   );
 };
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 const appRouter = createBrowserRouter([
