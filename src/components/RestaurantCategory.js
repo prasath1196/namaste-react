@@ -7,11 +7,11 @@ const RestaurantCategory = ({ data, showItems, toggleItemState }) => {
   };
   return (
     <div>
-      <div
-        className='bg-gray-50 mx-auto my-2 shadow-lg p-4 w-6/12'
-        onClick={handleClick}
-      >
-        <div className='flex justify-between cursor-pointer'>
+      <div className='bg-gray-50 mx-auto my-2 shadow-lg p-4 w-6/12'>
+        <div
+          className='flex justify-between cursor-pointer'
+          onClick={handleClick}
+        >
           <span className='font-bold text-lg'>
             {data.title} ({data.itemCards.length})
           </span>
